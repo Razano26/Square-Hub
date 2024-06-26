@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Topic, Prisma } from '@prisma/client';
+import { Topic, Prisma, User } from '@prisma/client';
 
 @Injectable()
 export class TopicService {
@@ -46,18 +46,17 @@ export class TopicService {
     });
   }
 
-  async updateTopic(params: {
-    where: Prisma.TopicWhereUniqueInput;
-    data: Prisma.TopicUpdateInput;
-  }): Promise<Topic> {
-    const { where, data } = params;
-    return this.prismaService.topic.update({
-      data,
-      where,
-    });
-  }
-
-  async deleteTopic(where: Prisma.TopicWhereUniqueInput): Promise<Topic> {
+  async deleteTopic(
+    where: Prisma.TopicWhereUniqueInput,
+    user: Partial<User>,
+  ): Promise<Topic> {
+    const topic = await this.topic(where);
+    if (!topic) {
+      throw new HttpException('Topic not found', HttpStatus.NOT_FOUND);
+    }
+    if (topic.userId !== user.id) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
     return this.prismaService.topic.delete({
       where,
     });

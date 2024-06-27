@@ -43,6 +43,6 @@ export class TopicController {
     @Param('title') title: string,
     @Request() request,
   ): Promise<Topic> {
-    return this.topicService.deleteTopic({ title: title }, request.user.id);
+    return this.topicService.deleteTopic({ title: title }, request.user);
   }
 }

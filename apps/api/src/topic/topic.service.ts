@@ -9,15 +9,20 @@ export class TopicService {
   async topic(
     topicWhereUniqueInput: Prisma.TopicWhereUniqueInput,
   ): Promise<Partial<Topic> | null> {
-    return this.prismaService.topic.findUnique({
+    const topic = await this.prismaService.topic.findUnique({
       where: topicWhereUniqueInput,
       select: {
         id: true,
         title: true,
         createdAt: true,
+        userId: true,
         posts: true,
       },
     });
+    if (!topic) {
+      throw new HttpException('Topic not found', HttpStatus.NOT_FOUND);
+    }
+    return topic;
   }
 
   async topics(params: {
@@ -35,7 +40,11 @@ export class TopicService {
       where,
       orderBy,
       select: {
+        id: true,
         title: true,
+        createdAt: true,
+        userId: true,
+        posts: true,
       },
     });
   }

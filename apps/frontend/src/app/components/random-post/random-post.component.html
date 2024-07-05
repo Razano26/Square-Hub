@@ -1,0 +1,26 @@
+<div class="navbar bg-base-100">
+  <a class="btn btn-ghost text-xl disabled">Random Posts</a>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Topic</th>
+        <th>User</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+<ng-container *ngFor="let post of posts">
+  <tr>
+    <td>{{post.title}}</td>
+    <td>{{post.topic}}</td>
+    <td>{{post.user}}</td>
+    <td>{{post.date}}</td>
+  </tr>
+</ng-container>
+    </tbody>
+  </table>
+</div>

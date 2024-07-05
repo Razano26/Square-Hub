@@ -1,0 +1,26 @@
+<div class="navbar bg-base-100">
+  <a class="btn btn-ghost text-xl disabled">Random Topics</a>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>User</th>
+        <th>Post</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+<ng-container *ngFor="let topic of topics">
+  <tr>
+    <td>{{topic.title}}</td>
+    <td>{{topic.user}}</td>
+    <td>{{topic.post}}</td>
+    <td>{{topic.date}}</td>
+  </tr>
+</ng-container>
+    </tbody>
+  </table>
+</div>

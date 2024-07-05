@@ -1,0 +1,13 @@
+<div class="navbar bg-base-200">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl">Square Hub</a>
+  </div>
+  <div class="flex-none">
+    
+    <Span *ngIf="auth.user$ | async as user">
+      {{ user.name }}
+    </Span>
+    <span class="mx-3">⸱</span>
+    <app-logout-button></app-logout-button>
+  </div>
+</div>
